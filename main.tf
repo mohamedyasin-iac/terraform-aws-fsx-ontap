@@ -20,9 +20,9 @@ module "fsx_ontap" {
 
   # File system configuration
   storage_capacity              = 1024                             # FSx size (GiB)
-  subnet_ids                    = ["subnet-0a700e64893ac7ccc"]     # Resolved from helper or manual input
-  preferred_subnet_id           = "subnet-0a700e64893ac7ccc"       # Preferred subnet (override or first available)
-  security_group_ids            = ["sg-02392de1247c7e3af"]         # SGs from helper or manual input
+  subnet_ids                    = ["subnet-b06bb2d5"]              # Resolved from helper or manual input
+  preferred_subnet_id           = "subnet-b06bb2d5"                # Preferred subnet (override or first available)
+  security_group_ids            = ["sg-7e9b841b"]                  # SGs from helper or manual input
   deployment_type               = "SINGLE_AZ_1"                    # SINGLE_AZ_1 | SINGLE_AZ_2 | MULTI_AZ_1
   throughput_capacity           = 1024                             # Throughput (MB/s)
   fsx_admin_password            = random_password.fsx_ontap.result # Generated ONTAP admin password
@@ -82,7 +82,7 @@ resource "null_resource" "fsx_tagging" {
   }
 
   provisioner "local-exec" {
-    command = "aws fsx tag-resource --resource-arn ${local.fsx_file_system_arn} --tags Key=Name,Value=${self.triggers.name_tag} --region us-east-1"
+    command = "aws fsx tag-resource --resource-arn ${local.fsx_file_system_arn} --tags Key=Name,Value=${self.triggers.name_tag} --region eu-west-1"
   }
 }
 
